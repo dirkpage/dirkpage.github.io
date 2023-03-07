@@ -20,6 +20,7 @@ Table of Contents
   - [Preparing github pages](#preparing-github-pages)
     - [Adding github remote to local repository](#adding-github-remote-to-local-repository)
     - [Add `predeploy` and `deploy` scripts](#add-predeploy-and-deploy-scripts)
+    - [Set `homepage` property](#set-homepage-property)
   - [Developing and redeploying](#developing-and-redeploying)
     - [Development](#development)
     - [Building and testing build locally](#building-and-testing-build-locally)
@@ -146,7 +147,6 @@ export default function App()  {
 now anything you write to your markdown file will appear as the contents of your static site!
 
 ## Preparing github pages
-
 ### Adding github remote to local repository
 
 When you ran `create-react-app` the template initialized an empty git repository, now you need to hook it up with the remote at github.com
@@ -173,8 +173,8 @@ By default, your branch name might be `master`, you can check by running:
 ``` shell
 git branch
 ```
-if so, and you would like to change that, run the command:
 
+if the output is master and you want to change that, run:
 ``` shell
 git branch -m main
 ```
@@ -204,8 +204,20 @@ The scripts object in your `package.json` file should look like this:
 }
 ```
 
-## Developing and redeploying
+### Set `homepage` property
 
+Still in your `package.json` file, add the following property to the highest scoped object.
+
+[`./package.json`](./package.json)
+``` json
+{
+    ...
+    "homepage": "."
+    ...
+}
+```
+
+## Developing and redeploying
 ### Development
 Run the static site in development using 
 ``` shell
@@ -217,13 +229,15 @@ You can access the static site at http://localhost:3000
 while your static site is running, you can edit your markdown file. Whenever you save your changes they will appear automatically in your browser!
 
 ### Building and testing build locally
-to run a production build of your static site locally you can: 
+
+To run a production build of your static site locally you can: 
+
 1. install the `serve` dependency globally using:
 ``` shell
 npm install -g serve
 ```
 
-1. run the `serve` command on the `build` folder and specify the port 3000 with the `-p 3000` flag
+2. run the `serve` command on the `build` folder and specify the port 3000 with the `-p 3000` flag
 ``` shell
 npm build
 serve -s build/ -p 3000
@@ -255,3 +269,7 @@ Lastly, use the script you added to the `package.json` file earlier to build and
 ``` shell
 npm run deploy
 ```
+
+You can check your build status by going to your repository dashboard on github.com and clicking on the "Actions" tab.
+
+Your site should be accessible at `https://<your github username>.github.io/resume/`
