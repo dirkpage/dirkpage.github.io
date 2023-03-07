@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import resume from "./resume.md";
+
+export default function App()  {
+
+    const [resumeText, setResumeText] = useState("");
+
+    useEffect(() => {
+        fetch(resume)
+            .then((response) => response.text())
+            .then((text) => setResumeText(text));
+    }, []);
+
+    return (
+        <div>
+            <ReactMarkdown
+                children={resumeText}
+                remarkPlugins={[remarkGfm]}
+            />
+        </div>
+    )
 }
-
-export default App;
